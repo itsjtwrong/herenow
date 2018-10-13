@@ -44,14 +44,36 @@ let items = [{
 
 window.onload = function () {
     populateGallery(items);
+    hideShareSomething();
 };
 
-function enlargePhoto(src) {
+function enlargePhoto(src, id) {
     let x = document.getElementById("enlargedPhoto");
     let y = document.getElementById("enlarged");
+
     y.style.zIndex = "110";
     x.style.zIndex = "110";
     x.src = src;
+
+    let metaList = document.createElement('ul');
+    let title = document.createElement('h2');
+    metaList.setAttribute('id','metaList');
+    title.setAttribute('id','title');
+
+    document.getElementById('metaData').appendChild(title);
+    document.getElementById('metaData').appendChild(metaList);
+
+    for (info in items[id]) {
+        console.log(info);
+        if(info === 'title') {
+            title.innerHTML = items[id][info];
+        } else {
+            let li = document.createElement('li');
+            li.innerHTML = info + "  |  " + items[id][info];
+            metaList.appendChild(li);
+        }
+    }
+
     document.getElementById("inspo").style.display = "none";
 }
 
@@ -62,21 +84,35 @@ function shrinkPhoto() {
     x.style.zIndex = "1";
     x.src = "";
     document.getElementById("inspo").style.display = "flex";
+
+    document.getElementById("metaData").removeChild(document.getElementById("metaList"));
+    document.getElementById("metaData").removeChild(document.getElementById("title"));
 }
 
 function populateGallery(items) {
     let children = document.getElementById("inspo").children;
     let itemCount = 0;
     for (let i = 0; i<items.length;i++) {
-        console.log(items[i]);
         let img = document.createElement("img");
         let column = children[itemCount % 4];
         img.src = items[i].src;
         img.style = "width:100%";
         img.onclick = function() {
-            enlargePhoto(img.src);
+            enlargePhoto(img.src, i);
         }
         column.appendChild(img);
         itemCount++;
     }
 }
+
+function hideShareSomething() {
+    document.getElementById("shareFormWrap").style.display = "none";
+}
+
+function shareSomething() {
+    document.getElementById("shareFormWrap").style.display = "block";
+    document.getElementById("share").style.display = "none";
+}
+
+function addToItems()
+

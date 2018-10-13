@@ -22,8 +22,26 @@
         <div class="enlarged" id="enlarged">
             <img src="" alt="" class="enlargedPhoto" id="enlargedPhoto" onclick="shrinkPhoto()">
         </div>
-        <div class="metaData text">
+        <div class="metaData text" id="metaData">
             <h1>CLICK SOMETHING</h1>
+        </div>
+
+        <div class="shareFormWrap text" id="shareFormWrap">
+            <form id="shareForm">
+                Title: 
+                <input type="text" name="title" id="titleInput"><br>
+                Artist: 
+                <input type="text" name="artist" required><br>
+                Medium:  
+                <input type="text" name="medium" required><br>
+                SRC:  
+                <input type="text" name="src" required><br>
+                <input type="button" name="submit" value="Submit" id="submit">
+            </form>
+        </div>
+
+        <div class="submit text" id="share" onclick="shareSomething()">
+            <h1>SHARE SOMETHING</h1>
         </div>
     </div>
     <script src="scripts.js"></script> 
