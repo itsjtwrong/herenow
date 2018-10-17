@@ -56,7 +56,7 @@ function enlargePhoto(src, id) {
     x.src = src;
 
     let metaList = document.createElement('ul');
-    let title = document.createElement('h2');
+     title = document.createElement('h2');
     metaList.setAttribute('id','metaList');
     title.setAttribute('id','title');
 
@@ -91,6 +91,13 @@ function shrinkPhoto() {
 
 function populateGallery(items) {
     let children = document.getElementById("inspo").children;
+    for (let i=0;i<children.length;i++) {
+        let child = children[i];
+        while(child.firstChild) {
+            child.removeChild(child.firstChild);
+        }
+
+    }
     let itemCount = 0;
     for (let i = 0; i<items.length;i++) {
         let img = document.createElement("img");
@@ -112,7 +119,16 @@ function hideShareSomething() {
 function shareSomething() {
     document.getElementById("shareFormWrap").style.display = "block";
     document.getElementById("share").style.display = "none";
+    document.getElementById("submit").onclick = function() {
+        let title = document.getElementById("titleInput").value;
+        let artist = document.getElementById("artistInput").value;
+        let medium = document.getElementById("mediumInput").value;
+        let src = document.getElementById("srcInput").value;
+        items.push({title:title,artist:artist,medium:medium,src:src});
+        populateGallery(items);
+        document.getElementById("shareForm").reset();
+        hideShareSomething();
+        document.getElementById("share").style.display = "block";
+    }
 }
-
-function addToItems()
 
