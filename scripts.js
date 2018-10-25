@@ -73,7 +73,10 @@ function enlargePhoto(src, id) {
             metaList.appendChild(li);
         }
     }
-
+    if(document.body.clientWidth < 600) {
+        document.getElementById("clickSomething").style.display = "none";
+        document.getElementById("share").style.display = "none";
+    }
     document.getElementById("inspo").style.display = "none";
 }
 
@@ -87,6 +90,8 @@ function shrinkPhoto() {
 
     document.getElementById("metaData").removeChild(document.getElementById("metaList"));
     document.getElementById("metaData").removeChild(document.getElementById("title"));
+    document.getElementById("clickSomething").style.display = "block";
+    document.getElementById("share").style.display = "block";
 }
 
 function populateGallery(items) {

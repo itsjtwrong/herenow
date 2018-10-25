@@ -44,7 +44,7 @@ body {
     vertical-align: center;
 }
 
-.metaData {
+.metaData,.click {
     grid-column:2/2;
     align-self:start;
     grid-row:1;
@@ -106,10 +106,18 @@ body {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
   }
-  .metaData, .shareFormWrap, .submit {
+  .metaData, .shareFormWrap, .submit,.click {
     grid-column:1/1;
     z-index:10;
 
   }
 
+  .enlarged {
+    grid-row:1/1;
+    align-self:start;
+  }
+
+  .metaData {
+    align-self:end;
+  }
 }
