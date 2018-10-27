@@ -75,9 +75,10 @@ function enlargePhoto(src, id) {
     }
     if(document.body.clientWidth < 600) {
         document.getElementById("clickSomething").style.display = "none";
-        document.getElementById("share").style.display = "none";
     }
     document.getElementById("inspo").style.display = "none";
+    document.getElementById("share").style.display = "none";
+    document.getElementById("shareFormWrap").style.display = "none";
 }
 
 function shrinkPhoto() {
@@ -124,6 +125,10 @@ function hideShareSomething() {
 function shareSomething() {
     document.getElementById("shareFormWrap").style.display = "block";
     document.getElementById("share").style.display = "none";
+    if(document.body.clientWidth < 600) {
+        document.getElementById("clickSomething").style.display = "none";
+        document.getElementById("inspo").style.display = "none";
+    }
     document.getElementById("submit").onclick = function() {
         let title = document.getElementById("titleInput").value;
         let artist = document.getElementById("artistInput").value;
@@ -134,6 +139,8 @@ function shareSomething() {
         document.getElementById("shareForm").reset();
         hideShareSomething();
         document.getElementById("share").style.display = "block";
+        document.getElementById("clickSomething").style.display = "block";
+        document.getElementById("inspo").style.display = "block";
     }
 }
 

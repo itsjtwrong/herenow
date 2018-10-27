@@ -93,6 +93,9 @@ body {
         flex: 49%;
         max-width: 50%;
     }
+    .metaData {
+        align-self:center;
+    }
 }
 
 @media screen and (max-width: 600px) {
