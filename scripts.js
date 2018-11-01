@@ -51,6 +51,9 @@ function enlargePhoto(src, id) {
     let x = document.getElementById("enlargedPhoto");
     let y = document.getElementById("enlarged");
 
+    y.style.display = "block";
+    x.style.display = "block";
+
     y.style.zIndex = "110";
     x.style.zIndex = "110";
     x.src = src;
@@ -84,6 +87,10 @@ function enlargePhoto(src, id) {
 function shrinkPhoto() {
     let x = document.getElementById("enlargedPhoto");
     let y = document.getElementById("enlarged");
+
+    y.style.display = "none";
+    x.style.display = "none";
+
     y.style.zIndex = "1";
     x.style.zIndex = "1";
     x.src = "";

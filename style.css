@@ -12,6 +12,7 @@ body {
     align-content: space-evenly;
     grid-gap: 1%;
     height: 100vh;
+    width:100%;
 }
 
 .text {
@@ -50,6 +51,10 @@ body {
     grid-row:1;
 }
 
+.metaData {
+    align-self:center;
+}
+
 .enlarged {
     grid-column: 1/2;
     /*   background:red; */
@@ -68,7 +73,7 @@ body {
 
 #metaList {
     text-align:left;
-    padding-left:none;
+    padding-left:0px;
     list-style:none;
     line-height:24px;
     font-size: 18px;
@@ -99,28 +104,49 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+    body {
+        width:100%
+    }
   .column {
-    -ms-flex:100&;
+    -ms-flex:100%;
     flex: 100%;
     max-width: 100%;
-
   }
+
   .main {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    width:100%;
   }
+
   .metaData, .shareFormWrap, .submit,.click {
     grid-column:1/1;
     z-index:10;
-
   }
 
+  .submit {
+      margin-bottom:100px;
+  }
   .enlarged {
     grid-row:1/1;
+    grid-column:1/1;
     align-self:start;
+    justify-self:start;
   }
-
+  .enlargedPhoto {
+      width:95vw;
+      justify-self:start;
+  }
   .metaData {
     align-self:end;
+    justify-self:start;
+    width:95vw;
+    padding-left:0px;
+  }
+  #metaList {
+      padding-left:0px;
+      word-wrap: break-word;
   }
 }
