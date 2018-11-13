@@ -68,7 +68,7 @@ function populateGallery(items) {
 
     }
     let itemCount = 0;
-    for (let i = 0; i<items.length;i++) {
+    for (let i = items.length-1; i>=0;i--) {
         let img = document.createElement("img");
         let column = children[itemCount % 4];
         img.src = items[i].src;
