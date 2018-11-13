@@ -29,7 +29,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 0 0px;
-    overflow: scroll;
+    overflow: auto;
     z-index: 10;
     grid-row: 1;
 }
@@ -60,16 +60,15 @@ body {
     z-index: 1;
     align-self: center;
     justify-self: center;
-    max-width:70%;
-    max-height:70%;
+    height: 80%;
+    width: 80%;
+    max-width:80%;
+    max-height:80%;
 }
 
 .enlargedPhoto {
-    width: auto;
-    height: auto;
     max-width: 100%;
     max-height: 100%;
-
 }
 
 #metaList {

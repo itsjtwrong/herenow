@@ -1,16 +1,6 @@
 let items = {};
-
 window.onload = function () {
-    fetch("https://api.myjson.com/bins/cqn7y").then(response => {
-    return response.json();
-}).then(data => {
-    console.log(data);
-    items = data;
-    populateGallery(items.data);
-    hideShareSomething();
-}).catch(err => {
-    console.log(err);
-})
+    renewGallery();
 };
 
 function enlargePhoto(src, id) {
@@ -107,9 +97,8 @@ function shareSomething() {
         let artist = document.getElementById("artistInput").value;
         let medium = document.getElementById("mediumInput").value;
         let src = document.getElementById("srcInput").value;
-        items.data.push({title:title,artist:artist,medium:medium,src:src});
-        console.log(items);
-        putData(items);
+        let temp = {"title":title,"artist":artist,"medium":medium,"src":src};
+        renewGallery(true,temp)
         populateGallery(items.data);
         document.getElementById("shareForm").reset();
         hideShareSomething();
@@ -119,16 +108,40 @@ function shareSomething() {
     }
 }
 
-function putData(data) {
+async function putData(data) {
+    console.log("PUT DATA");
     let req = new XMLHttpRequest();
 
-req.onreadystatechange = () => {
-  if (req.readyState == XMLHttpRequest.DONE) {
-    console.log(req.responseText);
-  }
-};
+    req.onreadystatechange = () => {
+        if (req.readyState == XMLHttpRequest.DONE) {
+            console.log(req.responseText);
+        }
+    };
 
-req.open("PUT", "https://api.myjson.com/bins/cqn7y",true);
-req.setRequestHeader("Content-type", "application/json");
-req.send(JSON.stringify(items));
+    req.open("PUT", "https://api.myjson.com/bins/cqn7y",true);
+    req.setRequestHeader("Content-type", "application/json");
+    req.send(JSON.stringify(items));
+
 }
+
+async function renewGallery(isConcatNeeded = false,newItem = ``) {
+    await fetch("https://api.myjson.com/bins/cqn7y").then(response => {
+    response.json().then(data => {
+        return items = data;
+    }).then(items => {
+        console.log(items);
+    if(isConcatNeeded) {
+        items.data.push(newItem);
+        console.log("concat happened");
+    }
+    populateGallery(items.data);
+    hideShareSomething();
+    }).then(response => {
+        putData(items);
+    })
+}).catch(err => {
+    console.log(err);
+})
+}
+
+
