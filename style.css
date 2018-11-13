@@ -61,6 +61,8 @@ body {
     z-index: 1;
     align-self: center;
     justify-self: center;
+    max-width:70%;
+    max-height:70%;
 }
 
 .enlargedPhoto {
@@ -115,7 +117,7 @@ body {
 
   .main {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-rows: auto auto;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     width:100%;
@@ -126,9 +128,6 @@ body {
     z-index:10;
   }
 
-  .submit {
-      margin-bottom:100px;
-  }
   .enlarged {
     grid-row:1/1;
     grid-column:1/1;
@@ -140,7 +139,8 @@ body {
       justify-self:start;
   }
   .metaData {
-    align-self:end;
+      grid-row:2/2;
+    align-self:start;
     justify-self:start;
     width:95vw;
     padding-left:0px;

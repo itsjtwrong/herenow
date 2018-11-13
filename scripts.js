@@ -1,50 +1,16 @@
-let items = [{
-        artist: "Rose Stout",
-        medium: "photography",
-        title: "untitled",
-        src: "https://c1.staticflickr.com/2/1907/44950503462_de35f413e2_c.jpg"
-    },
-    {
-        artist: "Rose Stout",
-        medium: "photography",
-        title: "Identity",
-        src: "https://c1.staticflickr.com/2/1906/31126335438_0469424c7f_c.jpg"
-    },
-    {
-        artist: "Noa Florsheim",
-        medium: "shirt",
-        title: "MAKE SOMETHING",
-        src: "https://c1.staticflickr.com/2/1949/44196033155_e89d9db134_c.jpg"
-    },
-    {
-        artist: "Rose Stout",
-        medium: "photography",
-        title: "untitled",
-        src: "https://c1.staticflickr.com/2/1975/43187473610_f0be93f953_c.jpg"
-    },
-    {
-        artist: "JT Wright",
-        medium: "jacket",
-        title: "keep moving forward, please",
-        src: "https://c1.staticflickr.com/2/1937/44947021062_a5e1396ee8_z.jpg"
-    },
-    {
-        artist: "Noa Florsheim",
-        medium: "acrylic on condoms",
-        title: "untitled",
-        src: "https://c1.staticflickr.com/2/1908/30076995047_a6aa8c4ff6_c.jpg"
-    },
-    {
-        artist: "Noa Florsheim",
-        medium: "charcoal",
-        title: "acquaintances sitting on a bench (3)",
-        src: "https://c1.staticflickr.com/2/1906/45058423862_793e8f30af_c.jpg"
-    }
-];
+let items = {};
 
 window.onload = function () {
-    populateGallery(items);
+    fetch("https://api.myjson.com/bins/cqn7y").then(response => {
+    return response.json();
+}).then(data => {
+    console.log(data);
+    items = data;
+    populateGallery(items.data);
     hideShareSomething();
+}).catch(err => {
+    console.log(err);
+})
 };
 
 function enlargePhoto(src, id) {
@@ -66,13 +32,13 @@ function enlargePhoto(src, id) {
     document.getElementById('metaData').appendChild(title);
     document.getElementById('metaData').appendChild(metaList);
 
-    for (info in items[id]) {
+    for (info in items.data[id]) {
         console.log(info);
         if(info === 'title') {
-            title.innerHTML = items[id][info];
+            title.innerHTML = items.data[id][info];
         } else {
             let li = document.createElement('li');
-            li.innerHTML = info + "  |  " + items[id][info];
+            li.innerHTML = info + "  |  " + items.data[id][info];
             metaList.appendChild(li);
         }
     }
@@ -141,13 +107,28 @@ function shareSomething() {
         let artist = document.getElementById("artistInput").value;
         let medium = document.getElementById("mediumInput").value;
         let src = document.getElementById("srcInput").value;
-        items.push({title:title,artist:artist,medium:medium,src:src});
-        populateGallery(items);
+        items.data.push({title:title,artist:artist,medium:medium,src:src});
+        console.log(items);
+        putData(items);
+        populateGallery(items.data);
         document.getElementById("shareForm").reset();
         hideShareSomething();
         document.getElementById("share").style.display = "block";
         document.getElementById("clickSomething").style.display = "block";
-        document.getElementById("inspo").style.display = "block";
+        document.getElementById("inspo").style.display = "flex";
     }
 }
 
+function putData(data) {
+    let req = new XMLHttpRequest();
+
+req.onreadystatechange = () => {
+  if (req.readyState == XMLHttpRequest.DONE) {
+    console.log(req.responseText);
+  }
+};
+
+req.open("PUT", "https://api.myjson.com/bins/cqn7y",true);
+req.setRequestHeader("Content-type", "application/json");
+req.send(JSON.stringify(items));
+}
