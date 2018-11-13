@@ -68,7 +68,6 @@ body {
 
 .enlargedPhoto {
     max-width: 100%;
-    max-height: 100%;
 }
 
 #metaList {
@@ -130,7 +129,7 @@ body {
     grid-row:1/1;
     grid-column:1/1;
     align-self:start;
-    justify-self:start;
+    justify-self:center;
   }
   .enlargedPhoto {
       width:95vw;
@@ -146,5 +145,14 @@ body {
   #metaList {
       padding-left:0px;
       word-wrap: break-word;
+  }
+  .click {
+      display:none;
+  }
+  #share {
+      font-size: 12px;
+  }
+  body {
+      margin:0px;
   }
 }
