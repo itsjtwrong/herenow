@@ -13,7 +13,6 @@ body {
     grid-gap: 1%;
     height: 100vh;
     width:100%;
-    margin: auto;
 }
 
 .text {
@@ -29,21 +28,21 @@ body {
     font-family: sans-serif;
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
     padding: 0 0px;
     overflow: auto;
     z-index: 10;
     grid-row: 1;
-    align-items:flex-start;
-  align-content:flex-start;
 }
-.cell img {
-    display: block;
-  }
-.img {
+
+.column {
+    flex: 25%;
+    max-width: 24%;
+    padding: 0.5% 0.5%;
+}
+
+.column img {
     margin-top: 8px;
     vertical-align: center;
-    max-width: 100%;
 }
 
 .metaData,.click {
@@ -91,26 +90,28 @@ body {
     grid-row:1;
     text-align:left;
 }
-.cell {
-    width: calc(100% / 3);
-  }
-@media screen and (max-width: 800px) {
 
+@media screen and (max-width: 800px) {
+    .column {
+        -ms-flex: 50%;
+        flex: 49%;
+        max-width: 50%;
+    }
     .metaData {
         align-self:center;
     }
-    .cell {
-        width: 50%;
-      }
 }
 
 @media screen and (max-width: 600px) {
     body {
         width:100%
     }
-    .cell {
-        width:100%;
-    }
+  .column {
+    -ms-flex:100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+
   .main {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;

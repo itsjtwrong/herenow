@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HERE, NOW.</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="styleOld.css">
 </head>
 
 <body>
     <script src="https://unpkg.com/vue"></script>
-    <div class="main" id="app">
+    <div class="main">
         <div class="inspo" id="inspo">
-            <gallery-item v-for="item in items" :item="item"></gallery-item>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
         </div>
 
         <div class="enlarged" id="enlarged">
@@ -44,7 +47,7 @@
             <h1>SHARE SOMETHING</h1>
         </div>
     </div>
-    <script src="scripts.js"></script> 
+    <script src="scriptsOld.js"></script> 
 </body>
 
 </html>

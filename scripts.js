@@ -1,43 +1,66 @@
-let items = {};
+let items = {"data":[{"id":0, "title":"Cynics Fuel This World","artist":"JT Wright","medium":"Jacket","src":"https://c1.staticflickr.com/2/1937/44947021062_31520d438d_k.jpg"},{"id":1,"title":"acquaintances sitting on a bench","artist":"Noa Florshiem","medium":"Charcoal","src":"https://c1.staticflickr.com/2/1906/45058423862_477609d471_k.jpg"},{"id":2,"title":"LOVE$ICK","artist":"JT Wright","medium":"Photography","src":"https://c1.staticflickr.com/5/4744/39313872705_2598c69f59_k.jpg"},{"id":3,"title":"KNOXCRAFT","artist":"Noa Florshiem","medium":"Minecraft Server","src":"https://c1.staticflickr.com/5/4859/44953520505_02c4c540da_k.jpg"}]}
+
+Vue.component("gallery-item", {
+    methods: {
+        enlargePhoto: function() {
+            let x = document.getElementById("enlargedPhoto");
+            let y = document.getElementById("enlarged");
+
+            y.style.display = "block";
+            x.style.display = "block";
+
+            y.style.zIndex = "110";
+            x.style.zIndex = "110";
+            x.src = this.$el.children[0].src;
+            let id = this.$el.children[0].attributes[1].value;
+
+            let metaList = document.createElement('ul');
+            title = document.createElement('h2');
+            metaList.setAttribute('id','metaList');
+            title.setAttribute('id','title');
+
+            document.getElementById('metaData').appendChild(title);
+            document.getElementById('metaData').appendChild(metaList);
+            console.log();
+            for (info in items.data[id]) {
+                console.log(info);
+                if(info === 'title') {
+                    title.innerHTML = items.data[id][info];
+                } else {
+                    let li = document.createElement('li');
+                    li.innerHTML = info + "  |  " + items.data[id][info];
+                    metaList.appendChild(li);
+            }
+            }
+            if(document.body.clientWidth < 600) {
+                document.getElementById("clickSomething").style.display = "none";
+            }
+            document.getElementById("inspo").style.display = "none";
+            document.getElementById("share").style.display = "none";
+            document.getElementById("shareFormWrap").style.display = "none";
+        }
+    },
+    props: {
+        item:Object
+    },
+
+    template: `<div class="cell"><img :src="item.src" :place="item.id" style="width:100%" v-on:click="enlargePhoto"></div>`
+})
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        items: items.data
+    }
+})
+
+
 window.onload = function () {
     renewGallery();
 };
 
 function enlargePhoto(src, id) {
-    let x = document.getElementById("enlargedPhoto");
-    let y = document.getElementById("enlarged");
-
-    y.style.display = "block";
-    x.style.display = "block";
-
-    y.style.zIndex = "110";
-    x.style.zIndex = "110";
-    x.src = src;
-
-    let metaList = document.createElement('ul');
-     title = document.createElement('h2');
-    metaList.setAttribute('id','metaList');
-    title.setAttribute('id','title');
-
-    document.getElementById('metaData').appendChild(title);
-    document.getElementById('metaData').appendChild(metaList);
-
-    for (info in items.data[id]) {
-        console.log(info);
-        if(info === 'title') {
-            title.innerHTML = items.data[id][info];
-        } else {
-            let li = document.createElement('li');
-            li.innerHTML = info + "  |  " + items.data[id][info];
-            metaList.appendChild(li);
-        }
-    }
-    if(document.body.clientWidth < 600) {
-        document.getElementById("clickSomething").style.display = "none";
-    }
-    document.getElementById("inspo").style.display = "none";
-    document.getElementById("share").style.display = "none";
-    document.getElementById("shareFormWrap").style.display = "none";
+    
 }
 
 function shrinkPhoto() {
@@ -58,28 +81,24 @@ function shrinkPhoto() {
     document.getElementById("share").style.display = "block";
 }
 
-function populateGallery(items) {
-    let children = document.getElementById("inspo").children;
-    for (let i=0;i<children.length;i++) {
-        let child = children[i];
-        while(child.firstChild) {
-            child.removeChild(child.firstChild);
-        }
+// function populateGallery(items) {
+//     let children = document.getElementById("inspo").children;
+//     for (let i=0;i<children.length;i++) {
+//         let child = children[i];
+//         while(child.firstChild) {
+//             child.removeChild(child.firstChild);
+//         }
 
-    }
-    let itemCount = 0;
-    for (let i = items.length-1; i>=0;i--) {
-        let img = document.createElement("img");
-        let column = children[itemCount % 4];
-        img.src = items[i].src;
-        img.style = "width:100%";
-        img.onclick = function() {
-            enlargePhoto(img.src, i);
-        }
-        column.appendChild(img);
-        itemCount++;
-    }
-}
+//     }
+//     let itemCount = 0;
+//     for (let i = items.length-1; i>=0;i--) {
+//         let img = document.createElement("gallery-item");
+//         let column = children[itemCount % 4];
+//         img.src = items[i].src;
+//         column.appendChild(img);
+//         itemCount++;
+//     }
+// }
 
 function hideShareSomething() {
     document.getElementById("shareFormWrap").style.display = "none";
